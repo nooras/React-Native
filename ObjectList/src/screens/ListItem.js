@@ -3,7 +3,8 @@ import { View, Text, StyleSheet } from 'react-native';
 import ItemComponent from '../components/ItemComponent';
 import { db } from '../config/db';
 
-let itemsRef = db.ref('/items');
+
+let itemsRef = db.ref('/Newdata');
 
 const styles = StyleSheet.create({
     container: {
@@ -26,6 +27,11 @@ componentDidMount() {
         this.setState({items});
      });
 }
+readUserData() {
+  firebase.database().ref('Newdata/').once('value', function (snapshot) {
+      console.log(snapshot.val())
+  });
+}
 
 render() {
     return (
@@ -37,5 +43,5 @@ render() {
             }
         </View>
     )
-}
+  }
 }

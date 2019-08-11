@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableHighlight, Alert } from 'react-native';
-import { addItem } from '../services/ItemService';
+import { View, Text, StyleSheet, TextInput, TouchableHighlight, Alert,ScrollView } from 'react-native';
+//import { addItem } from '../services/ItemService';
 import { db } from '../config/db';
 import {Platform, InteractionManager} from 'react-native';
 
@@ -64,8 +64,9 @@ export default class AddItem extends Component {
       Rating:'',
       error: false
     }
+    //this.inputData = this.inputData.bind(this);
     this.submitData = this.submitData.bind(this);
-    this.inputData = this.inputData.bind(this);
+    
   }
   /*componentDidMount() {
       db
@@ -80,18 +81,24 @@ export default class AddItem extends Component {
         Name: this.state.Name,
         Desc: this.state.Desc,
         Price: this.state.Price,
-        Rating: this.state.Rating,
+        Rating: this.state.Rating
+        /*Name:'pencil',
+        Desc:'writing',
+        Price:'10',
+        Rating:'5'*/
+        
       })
       .catch(error => console.log(error));
-      //Alert.alert("saved successfully");
+      Alert.alert("saved successfully");
       }
-  inputData(event) {
+  /*inputData(event) {
     const Name = this.refs.name.value;
     const Desc = this.refs.desc.value;
     const Price = this.refs.price.value;
     const Rating = this.refs.rating.value;
-    this.setState({ Name, Desc, Price,Rating });
-  }
+    console.log(Name,Desc,Price,Rating,this.state.Name)
+    this.setState({Name, Desc, Price,Rating });
+  }*/
   /*handleChange(e) {
     this.setState({
       name: e.nativeEvent.text
@@ -110,23 +117,30 @@ export default class AddItem extends Component {
         <Text style={styles.title}>Add Item</Text>
         <TextInput
               style={styles.itemInput}
-              onChange={this.inputData}
-              ref="name"
+              placeholder="Name of item"
+              onChangeText={(Name) => this.setState({Name})}
+              value={this.state.Name}
+              //onChange={this.inputData}
+              //ref="name"
             />                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
           <TextInput
-              style={styles.itemInput}
-              onChange={this.inputData}
-              ref="desc"
+              style={styles.itemDescInput}
+              placeholder="Description of item"
+              multiline={true}
+              onChangeText={(Desc) => this.setState({Desc})}
+              value={this.state.Desc}
             />
             <TextInput
               style={styles.itemInput}
-              onChange={this.inputData}
-              ref="price"
+              placeholder="Price of item"
+              onChangeText={(Price) => this.setState({Price})}
+              value={this.state.Price}
             />
             <TextInput
               style={styles.itemInput}
-              onChange={this.inputData}
-              ref="rating"
+              placeholder="Rating of item"
+              onChangeText={(Rating) => this.setState({Rating})}
+              value={this.state.Rating}
             />
         <TouchableHighlight
                 style = {styles.button}
@@ -135,10 +149,11 @@ export default class AddItem extends Component {
               >
               <Text
                   style={styles.buttonText}>
-                  Add
+                  Add       
               </Text>
+        
             </TouchableHighlight>
-      </View>
+      </View>      
     )
   }
 }
@@ -149,7 +164,7 @@ const styles = StyleSheet.create({
     padding: 30,
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundColor: '#2a8ab7'
+    backgroundColor: '#9575cd'
   },
   title: {
     marginBottom: 20,
@@ -158,6 +173,16 @@ const styles = StyleSheet.create({
   },
   itemInput: {
     height: 50,
+    padding: 4,
+    margin: 5,
+    fontSize: 23,
+    borderWidth: 1,
+    borderColor: 'white',
+    borderRadius: 8,
+    color: 'white'
+  },
+  itemDescInput:{
+    height: 100,
     padding: 4,
     margin: 5,
     fontSize: 23,
